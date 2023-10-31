@@ -27,6 +27,7 @@ print(df.values[2])
 print(df.loc[['a','d']])
 # d) numbers의 합을 구하시오.
 print(df.sum(axis=0))
+print(df.numbers.sum())
 # e) numbers의 값들을 각각 제곱하시오. 아래 결과가 나와야 함 
 print(df.pow(2))
 # f) floats 라는 이름의 칼럼을 추가하시오. 값은 1.5, 2.5, 3.5, 4.5    아래 결과가 나와야 함.
