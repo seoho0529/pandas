@@ -73,3 +73,57 @@ import re
 links2 = soup3.find_all(href=re.compile(r'^https'))
 for j in links2:
     print(j.attrs['href'])
+    
+""" 
+print('벅스 뮤직 사이트에서 곡 제목 읽기')
+from urllib.request import urlopen
+url = urlopen("https://music.bugs.co.kr/chart")
+soup = BeautifulSoup(url.read(), 'html.parser')
+# print(soup)
+musics = soup.find_all('td', class_='check')
+# print(musics)
+for i, music in enumerate(musics):
+    print("{}위 : {}".format(i+1, music.input['title']))
+"""
+
+# 자손인지 직계인지, 클래스인지 id인지 
+print('\n-------- select_one(find), select(findall)() 함수 : css의 셀렉터를 사용 --------')
+htmlData4 = """
+<html>
+<body>
+<div id="hello">
+    <a href="https:www.naver.com">naver</a><br/>
+    <span>
+        <a href="https:www.daum.net">daum</a>
+    </span>
+    <b>
+        <ul class="world">
+            <li>안녕</li>
+            <li>반가워</li>
+        </ul>
+    </b>
+</div>
+<div id="hi" class="good">두번쨰 디브 태그</div>
+</body>
+</html>
+"""
+soup4 = BeautifulSoup(htmlData4, 'lxml')
+kbs = soup4.select_one("div#hello > a")  # 단수 선택
+print('kbs : ', kbs, ' ', kbs.string)
+kbs2 = soup4.select_one("div.good")
+print('kbs2 : ', kbs2, ' ', kbs2.string)
+print()
+mbc = soup4.select("div#hello ul.world > li") # 복수 선택  div태그 중에서 id가 hello인,, 그게 ul를 포함하고 있음 -- 자손을 뜻함(공백유무),, hello>ul.world는 직계를 뜻함
+print('mbc : ', mbc)
+for a in mbc:
+    print(a.string, ' ')
+
+print()
+msg = list()
+for a in mbc:
+    msg.append(a.string)
+    
+import pandas as pd
+df = pd.DataFrame(msg, columns=['자료'])
+print(df)
+print(df.to_json())
