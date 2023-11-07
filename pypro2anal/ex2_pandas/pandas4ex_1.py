@@ -15,6 +15,7 @@ df = df[df['Group'].str.strip() != 'NA']
 print(df.head(5))
 print()
 
+
 print('Career, Score 칼럼을 추출하여 DataFrame 을 작성')
 df = df[['Career', 'Score']]
 print(df)
@@ -29,7 +30,6 @@ print()
 print(df)
 print(f'평균 Career: {avg_career}')
 print(f'평균 Score: {avg_score}')
-
 
 
 # tips.csv 파일 읽기
@@ -56,6 +56,7 @@ smoke_counts = tips['smoker'].value_counts()
 print("\n흡연자, 비흡연자 수:")
 print(smoke_counts)
 print()
+
 
 # 요일 칼럼의 유일한 값 출력
 uni_days = tips['day'].unique()  # pd.unique(tips['day'])
