@@ -29,7 +29,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_
 print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)  # (14, 2) (6, 2) (14,) (6,)
 
 # 모델작성
-model = LogisticRegression(C=1.0, solver='lbfgs', multi_class='auto', random_state=0, verbose=1)
+model = LogisticRegression(C=0.00001, solver='lbfgs', multi_class='auto', random_state=0, verbose=1)
 print(model)
 model.fit(x_train, y_train)
 
