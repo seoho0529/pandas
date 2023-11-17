@@ -83,6 +83,34 @@ from sklearn.model_selection import StratifiedKFold
 # ...
 
 print('\n과적합 방지 방법 3 : GridSearchCV')
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV  # 모델 생성 시 최적의 파라미터 찾기
+parameters = {'max_depth':[1,2,3], 'min_samples_split':[2,3]}
+
+grid_dtree = GridSearchCV(dt_clf, param_grid=parameters, cv=3, refit=True)
+# refit=True 최적의 파라미터를 위해 재학습을 시도, 최적의 Estimator(추정기) 모델을 찾기 위해 학습을 반복
+
+grid_dtree.fit(x_train, y_train)  # gridsearch를 이용해 자동으로 복수의 내부 모형을 생성하고 실행시켜 최적의 파라미터를 찾아줌.    
+
+import pandas as pd
+score_df = pd.DataFrame(grid_dtree.cv_results_)
+print(score_df)  # 1,2,3 |  2,3에 대해 학습한.. 
+    
+print('GridSearchCV가 추천한 최적의 파라미터 : ', grid_dtree.best_params_) #  {'max_depth': 2, 'min_samples_split': 2}
+print('GridSearchCV가 추천한 최적의 정확도 : ', grid_dtree.best_score_)   # 0.9238095238095237
+    
+print()
+estimator = grid_dtree.best_estimator_ 
+print(estimator) # DecisionTreeClassifier(max_depth=2, random_state=123)
+pred = estimator.predict(x_test)
+print('pred : ', pred)    
+print('estimator(추천된 DecisionTreeClassifier) 정확도 : ', accuracy_score(y_test, pred))
+    
+    
+    
+    
+    
+    
+    
+    
     
     
